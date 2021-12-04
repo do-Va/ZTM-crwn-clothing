@@ -45,11 +45,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="shop" element={<ShopPage />} />
+          <Route path="shop/*" element={<ShopPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
           <Route
             path="signIn"

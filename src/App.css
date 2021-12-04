@@ -1,13 +1,4 @@
-body {
-  font-family: 'Open Sans Condensand';
-  padding: 20px 60px;
-}
-
-a {
-  text-decoration: none;
-  color: #222;
-}
-
-* {
-  box-sizing: border-box;
+.App {
+  width: 95%;
+  margin: 0 auto;
 }
