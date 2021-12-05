@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {
-  console.log(state.params);
+  console.log(state);
   switch (action.type) {
     case ShopActionTypes.CHANGE_PARAMS:
       return {
