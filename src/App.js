@@ -27,6 +27,7 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
+        // referansa ait kişinin veya objenin get ile getirdiğimiz bilgilerini onShanpshot ile dinleyip belgenin o anki değerlerini alıyoruz.
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
             id: snapShot.id,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 import CollectionItem from '../collection-item/collection-item.component';
 
@@ -9,9 +10,13 @@ import {
 } from './collection-preview.styles';
 
 const CollectionPreview = ({ title, items }) => {
+  const navigate = useNavigate();
+
   return (
     <CollectionPreviewContainer>
-      <TitleContainer>{title.toUpperCase()}</TitleContainer>
+      <TitleContainer onClick={() => navigate(title.toLowerCase())}>
+        {title.toUpperCase()}
+      </TitleContainer>
       <PreviewContainer>
         {items
           .filter((item, idx) => idx < 4)

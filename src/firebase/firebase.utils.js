@@ -21,9 +21,13 @@ const firebaseConfig = {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
+  // user kolleksiyonunun içerisindeki gelen id' ye ait referansını alıyoruz
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  // Bu referansa ait objenin veya kullanıcının bilgilerini çağırıyoruz.
   const snapShot = await userRef.get();
 
+  // Bu kullanıcının veritabanımızda var olup olmadığını kontrol ediyoruz. Eğer yok ise set ile yenisini oluşturuyoruz.
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createAt = new Date();
@@ -41,6 +45,42 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  // parametre ile cen collectionKey adında referans oluşturuyoruz.
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+
+  // ikinci parametre olarak gelen objectsToAdd objesini döngüye sokup içerisindeki her bir eleman için uniq keyli document oluşturuyoruz.
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+export const convertCollectionSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 firebase.initializeApp(firebaseConfig);
