@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
 import { selectCollection } from '../../redux/shop/shop.selectors';
-import { changeShopParams } from '../../redux/shop/shop.actions';
 
 import {
   CollectionPageContainer,
@@ -13,14 +12,10 @@ import {
   CollectionItemsContainer,
 } from './collection.styles';
 
-const CollectionPage = ({ collection, changeParams }) => {
+const CollectionPage = () => {
+  const { collectionId } = useParams();
+  const collection = useSelector(selectCollection(collectionId));
   const { title, items } = collection;
-
-  let params = useParams();
-
-  useEffect(() => {
-    changeParams(params.collectionId);
-  });
 
   return (
     <CollectionPageContainer>
@@ -34,12 +29,4 @@ const CollectionPage = ({ collection, changeParams }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  collection: selectCollection(state.shop.params)(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  changeParams: item => dispatch(changeShopParams(item)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionPage);
+export default CollectionPage;

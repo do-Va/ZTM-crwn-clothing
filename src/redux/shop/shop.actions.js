@@ -1,9 +1,6 @@
 import ShopActionTypes from './shop.types';
 
-export const changeShopParams = item => ({
-  type: ShopActionTypes.CHANGE_PARAMS,
-  payload: item,
-});
+
 
 export const fetchCollectionsStart = () => ({
   type: ShopActionTypes.FETCH_COLLECTIONS_START,
