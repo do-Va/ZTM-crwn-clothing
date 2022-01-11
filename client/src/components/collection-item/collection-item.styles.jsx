@@ -34,7 +34,7 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
-  background: ${({ imageUrl }) => `url(${imageUrl}) top/cover no-repeat`};
+  background-image: ${({ imageUrl }) => `url(${imageUrl}) `};
 
   transition: transform 2s cubic-bezier(0.25, 0.45, 0.45, 0.94);
 `;
